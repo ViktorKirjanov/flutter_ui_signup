@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_ui_signup/config/custom_theme.dart';
 import 'package:flutter_ui_signup/pages/signup_page/signup_page.dart';
 
 void main() {
@@ -9,11 +11,17 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const SignUpPage(),
-      );
+  Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      themeMode: ThemeMode.light,
+      theme: CustomTheme.lightTheme,
+      home: const SignUpPage(),
+    );
+  }
 }
