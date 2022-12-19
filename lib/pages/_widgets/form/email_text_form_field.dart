@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class EmailInput extends StatelessWidget {
-  const EmailInput({
+class EmailTextFormField extends StatelessWidget {
+  const EmailTextFormField({
     Key? key,
     required this.errorText,
     required this.onChanged,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PasswordInput extends StatefulWidget {
-  const PasswordInput({
+class PasswordTextFormField extends StatelessWidget {
+  const PasswordTextFormField({
     Key? key,
     this.labelText,
     required this.errorText,
@@ -13,16 +13,11 @@ class PasswordInput extends StatefulWidget {
   final void Function(String) onChanged;
 
   @override
-  State<PasswordInput> createState() => _PasswordInputState();
-}
-
-class _PasswordInputState extends State<PasswordInput> {
-  @override
   Widget build(BuildContext context) => TextFormField(
         decoration: InputDecoration(
-          labelText: widget.labelText ?? 'Password',
-          errorText: widget.errorText,
+          labelText: labelText ?? 'Password',
+          errorText: errorText,
         ),
-        onChanged: widget.onChanged,
+        onChanged: onChanged,
       );
 }

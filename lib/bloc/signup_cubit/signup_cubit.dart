@@ -1,5 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ui_signup/core/errors/failure.dart';
+import 'package:flutter_ui_signup/core/errors/network_exception.dart';
+import 'package:flutter_ui_signup/data/repository/auth_repository.dart';
 import 'package:flutter_ui_signup/models/formz/email_model.dart';
 import 'package:flutter_ui_signup/models/formz/password_model.dart';
 import 'package:formz/formz.dart';
@@ -7,7 +10,9 @@ import 'package:formz/formz.dart';
 part 'signup_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
-  SignUpCubit() : super(const SignUpState());
+  SignUpCubit(this.authRepository) : super(const SignUpState());
+
+  final AuthRepository authRepository;
 
   void emailChanged(String value) {
     final email = Email.dirty(value);
@@ -29,19 +34,28 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
   }
 
-  Future<void> logInWithCredentials() async {
+  Future<void> signUpInWithCredentials() async {
     if (!state.status.isValidated) return;
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    try {
-      await Future<void>.delayed(const Duration(seconds: 1));
-      emit(state.copyWith(status: FormzStatus.submissionSuccess));
-    } on Exception catch (_) {
-      emit(
+    final failureOrResponse =
+        await authRepository.signUp(state.email.value, state.password.value);
+    failureOrResponse.fold(
+      (failure) {
+        final networkException = (failure as NetworkFailure).exception;
+        final message = NetworkException.getErrorMessage(networkException);
+        emit(
+          state.copyWith(
+            errorMessage: message,
+            status: FormzStatus.submissionFailure,
+          ),
+        );
+      },
+      (auth) => emit(
         state.copyWith(
-          status: FormzStatus.submissionFailure,
-          errorMessage: 'Something went wrong',
+          errorMessage: null,
+          status: FormzStatus.submissionSuccess,
         ),
-      );
-    }
+      ),
+    );
   }
 }
