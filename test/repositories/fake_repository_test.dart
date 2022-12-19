@@ -8,6 +8,8 @@ import 'package:flutter_ui_signup/data/repository/fake_repository.dart';
 import 'package:flutter_ui_signup/models/auth_response_model.dart';
 import 'package:mocktail/mocktail.dart';
 
+import '../consts.dart';
+
 class MockAuthDataSource extends Mock implements AuthDataSource {}
 
 void main() {
@@ -19,8 +21,6 @@ void main() {
     mockDataSource = MockAuthDataSource();
     repository = FakeAuthRepository(authDataSource: mockDataSource);
   });
-
-  const authResponse = AuthResponse(token: 'ACCESS_TOKEN');
 
   final error = DioError(
     response: Response(

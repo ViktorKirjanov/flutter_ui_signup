@@ -1,10 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_ui_signup/models/formz/email_model.dart';
 
-void main() {
-  const validEmail = 'email@gmail.com';
-  const invalidEmail = 'email';
+import '../../consts.dart';
 
+void main() {
   group('Email', () {
     group('constructors', () {
       test('pure creates correct instance', () {

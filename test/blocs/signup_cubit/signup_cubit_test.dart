@@ -5,24 +5,18 @@ import 'package:flutter_ui_signup/bloc/signup_cubit/signup_cubit.dart';
 import 'package:flutter_ui_signup/core/errors/failure.dart';
 import 'package:flutter_ui_signup/core/errors/network_exception.dart';
 import 'package:flutter_ui_signup/data/repository/auth_repository.dart';
-import 'package:flutter_ui_signup/models/auth_response_model.dart';
 import 'package:flutter_ui_signup/models/formz/email_model.dart';
 import 'package:flutter_ui_signup/models/formz/password_model.dart';
 import 'package:formz/formz.dart';
 import 'package:mocktail/mocktail.dart';
+
+import '../../consts.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}
 
 void main() {
   group('SignUpCubit', () {
     late AuthRepository mockAuthRepository;
-
-    const invalidEmail = 'invalid-email';
-    const validEmail = 'test@gmail.com';
-    const invalidPassword = '12345678';
-    const validPassword = '1234abcd';
-
-    const authResponse = AuthResponse(token: 'ACCESS_TOKEN');
 
     setUp(() {
       mockAuthRepository = MockAuthRepository();
