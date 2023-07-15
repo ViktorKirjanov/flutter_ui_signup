@@ -1,9 +1,7 @@
-import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_ui_signup/bloc/signup_cubit/signup_cubit.dart';
 import 'package:flutter_ui_signup/data/repository/auth_repository.dart';
+import 'package:flutter_ui_signup/dependency_injection.dart' as di;
 import 'package:flutter_ui_signup/pages/signup_page/_widgets/close_button.dart';
 import 'package:flutter_ui_signup/pages/signup_page/_widgets/email_input.dart';
 import 'package:flutter_ui_signup/pages/signup_page/_widgets/have_account_button.dart';
@@ -14,26 +12,24 @@ import 'package:flutter_ui_signup/pages/signup_page/_widgets/signup_button.dart'
 import 'package:flutter_ui_signup/pages/signup_page/signup_page.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockAuthenticationRepository extends Mock implements AuthRepository {}
-
-class MockSignUpCubit extends MockCubit<SignUpState> implements SignUpCubit {}
+class AuthRepositoryMock extends Mock implements AuthRepository {}
 
 void main() {
   const signupPageKey = Key('signupPageKey');
 
-  final TestWidgetsFlutterBinding binding =
-      TestWidgetsFlutterBinding.ensureInitialized();
+  final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUpAll(() async {
+    await di.init();
+  });
 
   group('SignupPage.', () {
     testWidgets('Finds SignupPage widgets.', (WidgetTester tester) async {
       await binding.setSurfaceSize(const Size(390, 844));
 
       await tester.pumpWidget(
-        RepositoryProvider<AuthRepository>(
-          create: (_) => MockAuthenticationRepository(),
-          child: const MaterialApp(
-            home: SignUpPage(key: signupPageKey),
-          ),
+        const MaterialApp(
+          home: SignUpPage(key: signupPageKey),
         ),
       );
 

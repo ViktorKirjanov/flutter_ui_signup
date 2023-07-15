@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ui_signup/bloc/signup_cubit/signup_cubit.dart';
 import 'package:flutter_ui_signup/config/custom_theme.dart';
 import 'package:flutter_ui_signup/data/repository/auth_repository.dart';
+import 'package:flutter_ui_signup/dependency_injection.dart';
 import 'package:flutter_ui_signup/pages/_widgets/buttons/social_button.dart';
 import 'package:flutter_ui_signup/pages/_widgets/custom_sized_box.dart';
 import 'package:flutter_ui_signup/pages/signup_page/_widgets/close_button.dart';
@@ -26,7 +27,7 @@ class SignUpPage extends StatelessWidget {
           ],
         ),
         body: BlocProvider(
-          create: (_) => SignUpCubit(context.read<AuthRepository>()),
+          create: (_) => SignUpCubit(getIt<AuthRepository>()),
           child: const _SignUpView(),
         ),
       );
