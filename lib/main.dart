@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ui_signup/bloc/bloc_observer.dart';
 import 'package:flutter_ui_signup/config/custom_theme.dart';
-import 'package:flutter_ui_signup/data/datasources/mock_data_source.dart';
+import 'package:flutter_ui_signup/data/datasources/auth_data_source_mock.dart';
 import 'package:flutter_ui_signup/data/repository/auth_repository.dart';
-import 'package:flutter_ui_signup/data/repository/fake_repository.dart';
+import 'package:flutter_ui_signup/data/repository/auth_repository_impl.dart';
 import 'package:flutter_ui_signup/pages/signup_page/signup_page.dart';
 
 void main() {
@@ -17,8 +17,8 @@ void main() {
 
   runApp(
     MyApp(
-      authRepository: FakeAuthRepository(
-        authDataSource: MockDataSource(),
+      authRepository: AuthRepositoryImpl(
+        authDataSource: AuthDataSourceMock(),
       ),
     ),
   );

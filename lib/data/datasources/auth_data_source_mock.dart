@@ -3,7 +3,7 @@ import 'package:flutter_ui_signup/data/datasources/auth_data_source.dart';
 import 'package:flutter_ui_signup/models/auth_response_model.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 
-class MockDataSource extends AuthDataSource {
+class AuthDataSourceMock extends AuthDataSource {
   @override
   Future<AuthResponse> signUp(String email, String password) async {
     final dio = Dio();
@@ -38,11 +38,7 @@ class MockDataSource extends AuthDataSource {
     } else {
       throw DioError(
         response: Response(
-          data: {
-            'status_code': 403,
-            'status_message': 'Can not create an account',
-            'success': false
-          },
+          data: {'status_code': 403, 'status_message': 'Can not create an account', 'success': false},
           statusCode: 403,
           requestOptions: RequestOptions(path: ''),
         ),
