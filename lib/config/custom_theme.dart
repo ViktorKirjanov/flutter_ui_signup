@@ -13,7 +13,7 @@ class CustomTheme {
   static const buttonHeight = 50.0;
   static const spacing = 16.0;
   static const inputRadius = BorderRadius.all(Radius.circular(8.0));
-  static const pagePadding = EdgeInsets.all(spacing);
+  static const contentPadding = EdgeInsets.all(spacing);
 
   static final lightTheme = ThemeData(
     colorScheme: ColorScheme.fromSwatch().copyWith(
@@ -29,7 +29,7 @@ class CustomTheme {
     ),
     inputDecorationTheme: const InputDecorationTheme(
       floatingLabelBehavior: FloatingLabelBehavior.never,
-      contentPadding: pagePadding,
+      contentPadding: contentPadding,
       filled: true,
       fillColor: white,
       border: OutlineInputBorder(

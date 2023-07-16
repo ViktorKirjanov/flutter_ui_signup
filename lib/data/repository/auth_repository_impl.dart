@@ -6,9 +6,8 @@ import 'package:flutter_ui_signup/data/datasources/auth_data_source.dart';
 import 'package:flutter_ui_signup/data/repository/auth_repository.dart';
 import 'package:flutter_ui_signup/models/auth_response_model.dart';
 
-class FakeAuthRepository extends AuthRepository {
-  FakeAuthRepository({required AuthDataSource authDataSource})
-      : _authDataSource = authDataSource;
+class AuthRepositoryImpl extends AuthRepository {
+  AuthRepositoryImpl({required AuthDataSource authDataSource}) : _authDataSource = authDataSource;
 
   final AuthDataSource _authDataSource;
 

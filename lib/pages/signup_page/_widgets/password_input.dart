@@ -11,11 +11,12 @@ class PasswordInput extends StatelessWidget {
   Widget build(BuildContext context) => BlocBuilder<SignUpCubit, SignUpState>(
         buildWhen: (previous, current) => previous.password != current.password,
         builder: (_, state) => PasswordTextFormField(
-          errorText: state.password.invalid && state.password.error != null
-              ? Password.getError(state.password.error!)
-              : null,
-          onChanged: (String password) =>
-              context.read<SignUpCubit>().passwordChanged(password),
+          errorText: state.password.displayError != null ? Password.getError(state.password.error!) : null,
+          onChanged: (String password) => context.read<SignUpCubit>().passwordChanged(password),
+          onEditingComplete: () {
+            context.read<SignUpCubit>().signUpInWithCredentials();
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
         ),
       );
 }

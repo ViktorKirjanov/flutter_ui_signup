@@ -9,7 +9,7 @@ class CustomMessager {
     Duration duration = const Duration(seconds: 5),
   }) {
     Flushbar<dynamic>(
-      margin: CustomTheme.pagePadding,
+      margin: CustomTheme.contentPadding,
       borderRadius: CustomTheme.inputRadius,
       flushbarPosition: FlushbarPosition.TOP,
       backgroundColor: CustomTheme.red,

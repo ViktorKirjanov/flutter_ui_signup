@@ -9,13 +9,13 @@ void main() {
       test('pure creates correct instance', () {
         const email = Email.pure();
         expect(email.value, '');
-        expect(email.pure, true);
+        expect(email.isPure, true);
       });
 
       test('dirty creates correct instance', () {
         const email = Email.dirty(validEmail);
         expect(email.value, validEmail);
-        expect(email.pure, false);
+        expect(email.isPure, false);
       });
     });
 

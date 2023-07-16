@@ -13,13 +13,13 @@ void main() {
       test('pure creates correct instance', () {
         const password = Password.pure();
         expect(password.value, '');
-        expect(password.pure, true);
+        expect(password.isPure, true);
       });
 
       test('dirty creates correct instance', () {
         const password = Password.dirty(validPassword);
         expect(password.value, validPassword);
-        expect(password.pure, false);
+        expect(password.isPure, false);
       });
     });
 

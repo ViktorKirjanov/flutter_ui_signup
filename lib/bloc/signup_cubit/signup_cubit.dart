@@ -19,7 +19,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(
       state.copyWith(
         email: email,
-        status: Formz.validate([email, state.password]),
+        isValid: Formz.validate([email, state.password]),
       ),
     );
   }
@@ -29,16 +29,15 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(
       state.copyWith(
         password: password,
-        status: Formz.validate([state.email, password]),
+        isValid: Formz.validate([state.email, password]),
       ),
     );
   }
 
   Future<void> signUpInWithCredentials() async {
-    if (!state.status.isValidated) return;
-    emit(state.copyWith(status: FormzStatus.submissionInProgress));
-    final failureOrResponse =
-        await authRepository.signUp(state.email.value, state.password.value);
+    if (!state.isValid) return;
+    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
+    final failureOrResponse = await authRepository.signUp(state.email.value, state.password.value);
     failureOrResponse.fold(
       (failure) {
         final networkException = (failure as NetworkFailure).exception;
@@ -46,14 +45,14 @@ class SignUpCubit extends Cubit<SignUpState> {
         emit(
           state.copyWith(
             errorMessage: message,
-            status: FormzStatus.submissionFailure,
+            status: FormzSubmissionStatus.failure,
           ),
         );
       },
       (auth) => emit(
         state.copyWith(
           errorMessage: null,
-          status: FormzStatus.submissionSuccess,
+          status: FormzSubmissionStatus.success,
         ),
       ),
     );
