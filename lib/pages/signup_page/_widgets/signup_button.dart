@@ -13,27 +13,26 @@ class SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BlocConsumer<SignUpCubit, SignUpState>(
         listener: (_, state) {
-          if (state.status == FormzStatus.submissionSuccess) {
+          if (state.status == FormzSubmissionStatus.success) {
             Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute<void>(builder: (context) => const HomePage()),
               (Route<dynamic> route) => false,
             );
-          } else if (state.status == FormzStatus.submissionFailure) {
+          } else if (state.status == FormzSubmissionStatus.failure) {
             CustomMessager().error(
               context: context,
               message: state.errorMessage ?? 'Ooops!',
             );
           }
         },
-        buildWhen: (previous, current) => previous.status != current.status,
+        buildWhen: (previous, current) => previous.status != current.status || previous.isValid != current.isValid,
         builder: (_, state) {
-          if (state.status == FormzStatus.submissionInProgress ||
-              state.status == FormzStatus.submissionSuccess) {
+          if (state.status == FormzSubmissionStatus.inProgress || state.status == FormzSubmissionStatus.success) {
             return const PrimaryLoadingButton();
           } else {
             return PrimaryButton(
               title: 'Create an Account',
-              active: state.email.valid && state.password.valid,
+              active: state.isValid,
               onPressed: context.read<SignUpCubit>().signUpInWithCredentials,
             );
           }

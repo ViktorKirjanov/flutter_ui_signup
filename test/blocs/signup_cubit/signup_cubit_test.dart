@@ -45,7 +45,8 @@ void main() {
         expect: () => const <SignUpState>[
           SignUpState(
             email: Email.dirty(invalidEmail),
-            status: FormzStatus.invalid,
+            status: FormzSubmissionStatus.initial,
+            isValid: false,
           ),
         ],
       );
@@ -61,7 +62,8 @@ void main() {
           SignUpState(
             email: Email.dirty(validEmail),
             password: Password.dirty(validPassword),
-            status: FormzStatus.valid,
+            status: FormzSubmissionStatus.initial,
+            isValid: true,
           ),
         ],
       );
@@ -75,7 +77,8 @@ void main() {
         expect: () => const <SignUpState>[
           SignUpState(
             password: Password.dirty(invalidPassword),
-            status: FormzStatus.invalid,
+            status: FormzSubmissionStatus.initial,
+            isValid: false,
           ),
         ],
       );
@@ -91,7 +94,8 @@ void main() {
           SignUpState(
             email: Email.dirty(validEmail),
             password: Password.dirty(validPassword),
-            status: FormzStatus.valid,
+            status: FormzSubmissionStatus.initial,
+            isValid: true,
           ),
         ],
       );
@@ -110,9 +114,9 @@ void main() {
         setUp: setUpMockAuthSuccess,
         build: buildBloc,
         seed: () => const SignUpState(
-          status: FormzStatus.valid,
           email: Email.dirty(validEmail),
           password: Password.dirty(validPassword),
+          isValid: true,
         ),
         act: (cubit) => cubit.signUpInWithCredentials(),
         verify: (_) => verify(
@@ -129,21 +133,23 @@ void main() {
         setUp: setUpMockAuthSuccess,
         build: buildBloc,
         seed: () => const SignUpState(
-          status: FormzStatus.valid,
           email: Email.dirty(validEmail),
           password: Password.dirty(validPassword),
+          isValid: true,
         ),
         act: (cubit) => cubit.signUpInWithCredentials(),
         expect: () => const <SignUpState>[
           SignUpState(
-            status: FormzStatus.submissionInProgress,
             email: Email.dirty(validEmail),
             password: Password.dirty(validPassword),
+            status: FormzSubmissionStatus.inProgress,
+            isValid: true,
           ),
           SignUpState(
-            status: FormzStatus.submissionSuccess,
             email: Email.dirty(validEmail),
             password: Password.dirty(validPassword),
+            status: FormzSubmissionStatus.success,
+            isValid: true,
           )
         ],
       );
@@ -158,27 +164,28 @@ void main() {
               any(),
             ),
           ).thenAnswer(
-            (_) async =>
-                Left(NetworkFailure(const NetworkException.requestCancelled())),
+            (_) async => Left(NetworkFailure(const NetworkException.requestCancelled())),
           );
         },
         build: buildBloc,
         seed: () => const SignUpState(
-          status: FormzStatus.valid,
           email: Email.dirty(validEmail),
           password: Password.dirty(validPassword),
+          isValid: true,
         ),
         act: (cubit) => cubit.signUpInWithCredentials(),
         expect: () => const <SignUpState>[
           SignUpState(
-            status: FormzStatus.submissionInProgress,
             email: Email.dirty(validEmail),
             password: Password.dirty(validPassword),
+            status: FormzSubmissionStatus.inProgress,
+            isValid: true,
           ),
           SignUpState(
-            status: FormzStatus.submissionFailure,
             email: Email.dirty(validEmail),
             password: Password.dirty(validPassword),
+            status: FormzSubmissionStatus.failure,
+            isValid: true,
             errorMessage: 'Request Cancelled',
           )
         ],
