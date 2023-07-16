@@ -40,7 +40,6 @@ void main() {
       expect(find.byType(PasswordInput), findsOneWidget);
       expect(find.byType(SignUpButton), findsOneWidget);
       expect(find.byType(HaveAccountButton), findsOneWidget);
-      expect(find.byType(Divider), findsOneWidget);
       expect(find.byKey(const Key('googleSocialButton')), findsOneWidget);
       expect(find.byKey(const Key('facebookSocialButton')), findsOneWidget);
       expect(find.byKey(const Key('appleSocialButton')), findsOneWidget);

@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(title: const Text('Home page')),
         body: Padding(
-          padding: CustomTheme.pagePadding,
+          padding: CustomTheme.contentPadding,
           child: Center(
             child: PrimaryButton(
               title: 'Logout',
