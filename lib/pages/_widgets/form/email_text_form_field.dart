@@ -17,6 +17,7 @@ class EmailTextFormField extends StatelessWidget {
           labelText: 'Email Address',
           errorText: errorText,
         ),
+        textInputAction: TextInputAction.next,
         onChanged: onChanged,
       );
 }

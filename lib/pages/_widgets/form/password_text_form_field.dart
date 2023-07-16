@@ -6,11 +6,13 @@ class PasswordTextFormField extends StatelessWidget {
     this.labelText,
     required this.errorText,
     required this.onChanged,
+    required this.onEditingComplete,
   }) : super(key: key);
 
   final String? labelText;
   final String? errorText;
   final void Function(String) onChanged;
+  final void Function() onEditingComplete;
 
   @override
   Widget build(BuildContext context) => TextFormField(
@@ -18,6 +20,8 @@ class PasswordTextFormField extends StatelessWidget {
           labelText: labelText ?? 'Password',
           errorText: errorText,
         ),
+        textInputAction: TextInputAction.done,
         onChanged: onChanged,
+        onEditingComplete: onEditingComplete,
       );
 }

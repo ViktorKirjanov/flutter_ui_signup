@@ -11,7 +11,6 @@ class EmailInput extends StatelessWidget {
   Widget build(BuildContext context) => BlocBuilder<SignUpCubit, SignUpState>(
         buildWhen: (previous, current) => previous.email != current.email,
         builder: (_, state) => EmailTextFormField(
-          // errorText: state.email.invalid && state.email.error != null ? Email.getError(state.email.error!) : null,
           errorText: state.email.displayError != null ? Email.getError(state.email.error!) : null,
           onChanged: (String email) => context.read<SignUpCubit>().emailChanged(email),
         ),
