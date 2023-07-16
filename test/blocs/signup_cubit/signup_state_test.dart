@@ -22,51 +22,50 @@ void main() {
     group('returns object with updated status when status is passed.', () {
       test('pure', () {
         expect(
-          const SignUpState().copyWith(status: FormzStatus.pure),
+          const SignUpState().copyWith(status: FormzSubmissionStatus.initial),
           const SignUpState(),
         );
       });
 
       test('invalid', () {
         expect(
-          const SignUpState().copyWith(status: FormzStatus.invalid),
-          const SignUpState(status: FormzStatus.invalid),
+          const SignUpState().copyWith(status: FormzSubmissionStatus.failure),
+          const SignUpState(status: FormzSubmissionStatus.failure),
         );
       });
 
       test('submissionCanceled', () {
         expect(
-          const SignUpState().copyWith(status: FormzStatus.submissionCanceled),
-          const SignUpState(status: FormzStatus.submissionCanceled),
+          const SignUpState().copyWith(status: FormzSubmissionStatus.canceled),
+          const SignUpState(status: FormzSubmissionStatus.canceled),
         );
       });
 
       test('submissionFailure', () {
         expect(
-          const SignUpState().copyWith(status: FormzStatus.submissionFailure),
-          const SignUpState(status: FormzStatus.submissionFailure),
+          const SignUpState().copyWith(status: FormzSubmissionStatus.failure),
+          const SignUpState(status: FormzSubmissionStatus.failure),
         );
       });
 
       test('submissionInProgress', () {
         expect(
-          const SignUpState()
-              .copyWith(status: FormzStatus.submissionInProgress),
-          const SignUpState(status: FormzStatus.submissionInProgress),
+          const SignUpState().copyWith(status: FormzSubmissionStatus.inProgress),
+          const SignUpState(status: FormzSubmissionStatus.inProgress),
         );
       });
 
       test('submissionSuccess', () {
         expect(
-          const SignUpState().copyWith(status: FormzStatus.submissionSuccess),
-          const SignUpState(status: FormzStatus.submissionSuccess),
+          const SignUpState().copyWith(status: FormzSubmissionStatus.success),
+          const SignUpState(status: FormzSubmissionStatus.success),
         );
       });
 
       test('valid', () {
         expect(
-          const SignUpState().copyWith(status: FormzStatus.valid),
-          const SignUpState(status: FormzStatus.valid),
+          const SignUpState().copyWith(isValid: true),
+          const SignUpState(isValid: true),
         );
       });
     });
@@ -85,8 +84,7 @@ void main() {
       );
     });
 
-    test('returns object with updated errorMessage when errorMessage is passed',
-        () {
+    test('returns object with updated errorMessage when errorMessage is passed', () {
       expect(
         const SignUpState().copyWith(errorMessage: errorMessage),
         const SignUpState(errorMessage: errorMessage),
